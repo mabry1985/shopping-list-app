@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Item} from '../App';
+import Icon from 'react-native-vector-icons//FontAwesome';
 
 export interface ListItemProps {
   item: Item;
@@ -11,6 +12,7 @@ const ListItem: FC<ListItemProps> = ({item}) => {
     <TouchableOpacity style={styles.listItem}>
       <View style={styles.listItemView}>
         <Text style={styles.listItemText}>{item.text}</Text>
+        <Icon name="remove" size={20} color="firebrick" />
       </View>
     </TouchableOpacity>
   );
