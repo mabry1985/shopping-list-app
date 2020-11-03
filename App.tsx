@@ -1,7 +1,8 @@
 import React, {FC, useState} from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList, Alert} from 'react-native';
 import Header from './components/Header';
 import ListItem from './components/ListItem';
+import AddItem from './components/AddItem';
 import {v4 as uuid} from 'uuid';
 
 export type Item = {
@@ -21,12 +22,31 @@ const App: FC<AppState> = () => {
     {id: uuid(), text: 'Juice'},
   ]);
 
+  const deleteItem = (id: string): void => {
+    setItems((prevItems) => {
+      return prevItems.filter((item) => item.id !== id);
+    });
+  };
+
+  const handleAddItem = (text: string): void => {
+    if (!text) {
+      Alert.alert('Error', 'Please enter an Item');
+    } else {
+      setItems((prevItems) => {
+        return [{id: uuid(), text}, ...prevItems];
+      });
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Header />
+      <AddItem onAddItem={handleAddItem} />
       <FlatList
         data={items}
-        renderItem={({item}) => <ListItem item={item}/>}
+        renderItem={({item}) => (
+          <ListItem item={item} deleteItem={deleteItem} />
+        )}
       />
     </View>
   );

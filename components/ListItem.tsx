@@ -5,14 +5,20 @@ import Icon from 'react-native-vector-icons//FontAwesome';
 
 export interface ListItemProps {
   item: Item;
+  deleteItem: (id: string) => void;
 }
 
-const ListItem: FC<ListItemProps> = ({item}) => {
+const ListItem: FC<ListItemProps> = ({item, deleteItem}) => {
   return (
     <TouchableOpacity style={styles.listItem}>
       <View style={styles.listItemView}>
         <Text style={styles.listItemText}>{item.text}</Text>
-        <Icon name="remove" size={20} color="firebrick" />
+        <Icon
+          name="remove"
+          size={20}
+          color="firebrick"
+          onPress={() => deleteItem(item.id)}
+        />
       </View>
     </TouchableOpacity>
   );
